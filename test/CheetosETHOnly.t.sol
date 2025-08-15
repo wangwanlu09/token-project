@@ -119,7 +119,7 @@ contract CheetosETHOnlyTest is Test {
         assertEq(cheetos.CLAIM_AMOUNT(), 10e18);      // 10 CHE per claim
         assertEq(cheetos.maxTotalSupply(), 10000e18); // 10,000 CHE total
         assertEq(cheetos.MAX_CLAIMS(), 1000);         // 1000 max claims
-        assertEq(cheetos.minETHRequired(), 1);        // 1 wei minimum
+        assertEq(cheetos.minETHRequired(), 0.01e18);  // 0.01 ETH minimum
     }
 
     function testOwnerIsSet() public view {
@@ -128,16 +128,16 @@ contract CheetosETHOnlyTest is Test {
 
     // ==================== Edge Cases ====================
 
-    function testClaimWithExactlyOneWei() public {
-        address oneWeiUser = address(0x999);
-        vm.deal(oneWeiUser, 1 wei); // Exactly minimum required
+    function testClaimWithExactlyMinimumETH() public {
+        address minEthUser = address(0x999);
+        vm.deal(minEthUser, 0.01e18); // Exactly minimum required (0.01 ETH)
         
-        assertTrue(cheetos.isEligible(oneWeiUser));
+        assertTrue(cheetos.isEligible(minEthUser));
         
-        vm.prank(oneWeiUser);
+        vm.prank(minEthUser);
         cheetos.claim();
         
-        assertEq(cheetos.balanceOf(oneWeiUser), cheetos.CLAIM_AMOUNT());
+        assertEq(cheetos.balanceOf(minEthUser), cheetos.CLAIM_AMOUNT());
     }
 
     function testCannotClaimWithZeroETH() public {
@@ -157,7 +157,7 @@ contract CheetosETHOnlyTest is Test {
         vm.assume(randomUser != address(0));
         vm.assume(randomUser.code.length == 0); // Not a contract
         vm.assume(!cheetos.hasClaimed(randomUser)); // Haven't claimed yet
-        vm.assume(ethAmount >= 1 wei && ethAmount <= 1000 ether); // Reasonable range
+        vm.assume(ethAmount >= 0.01e18 && ethAmount <= 1000 ether); // Reasonable range
         
         // Give random user Sepolia ETH
         vm.deal(randomUser, ethAmount);
