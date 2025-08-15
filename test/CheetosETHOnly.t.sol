@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
 import {Test} from "../lib/openzeppelin-contracts/lib/forge-std/src/Test.sol";
