@@ -1,48 +1,39 @@
 import { useReadContract, useWriteContract } from 'wagmi';
 import { CHEETOS_CONTRACT } from '@/lib/contracts';
 
-// 读取合约数据的hooks
-export function useCheetosContract() {
+// Hooks for static contract data (rarely changing data)
+export function useCheetosStaticData() {
+  // Get the token name
   const { data: name } = useReadContract({
     ...CHEETOS_CONTRACT,
     functionName: 'name',
   });
 
+  // Get the token symbol
   const { data: symbol } = useReadContract({
     ...CHEETOS_CONTRACT,
     functionName: 'symbol',
   });
 
-  const { data: totalSupply } = useReadContract({
-    ...CHEETOS_CONTRACT,
-    functionName: 'totalSupply',
-  });
-
+  // Get the maximum total supply
   const { data: maxTotalSupply } = useReadContract({
     ...CHEETOS_CONTRACT,
     functionName: 'maxTotalSupply',
   });
 
+  // Get the token amount for each claim
   const { data: claimAmount } = useReadContract({
     ...CHEETOS_CONTRACT,
     functionName: 'CLAIM_AMOUNT',
   });
 
+  // Get the maximum number of claims allowed
   const { data: maxClaims } = useReadContract({
     ...CHEETOS_CONTRACT,
     functionName: 'MAX_CLAIMS',
   });
 
-  const { data: claimCount } = useReadContract({
-    ...CHEETOS_CONTRACT,
-    functionName: 'claimCount',
-  });
-
-  const { data: remainingClaims } = useReadContract({
-    ...CHEETOS_CONTRACT,
-    functionName: 'remainingClaims',
-  });
-
+  // Get the minimum ETH required to claim
   const { data: minETHRequired } = useReadContract({
     ...CHEETOS_CONTRACT,
     functionName: 'minETHRequired',
@@ -51,18 +42,62 @@ export function useCheetosContract() {
   return {
     name,
     symbol,
-    totalSupply,
     maxTotalSupply,
     claimAmount,
     maxClaims,
-    claimCount,
-    remainingClaims,
     minETHRequired,
   };
 }
 
-// 用户相关数据的hooks
+// Hooks for dynamic contract data (frequently changing data)
+export function useCheetosDynamicData() {
+  // Get the current total token supply
+  const { data: totalSupply, refetch: refetchTotalSupply } = useReadContract({
+    ...CHEETOS_CONTRACT,
+    functionName: 'totalSupply',
+  });
+
+  // Get the current number of claims made
+  const { data: claimCount, refetch: refetchClaimCount } = useReadContract({
+    ...CHEETOS_CONTRACT,
+    functionName: 'claimCount',
+  });
+
+  // Get the remaining number of claims
+  const { data: remainingClaims, refetch: refetchRemainingClaims } = useReadContract({
+    ...CHEETOS_CONTRACT,
+    functionName: 'remainingClaims',
+  });
+
+  // Function to refetch all dynamic data
+  const refetchAll = () => {
+    refetchTotalSupply();
+    refetchClaimCount();
+    refetchRemainingClaims();
+  };
+
+  return {
+    totalSupply,
+    claimCount,
+    remainingClaims,
+    refetchAll,
+  };
+}
+
+// Convenience hook combining both static and dynamic contract data
+export function useCheetosContract() {
+  const staticData = useCheetosStaticData();
+  const dynamicData = useCheetosDynamicData();
+
+  return {
+    ...staticData,
+    ...dynamicData,
+  };
+}
+
+// Hooks to read user-specific contract data
 export function useUserContract(address?: `0x${string}`) {
+  // Get the user's token balance
   const { data: balance } = useReadContract({
     ...CHEETOS_CONTRACT,
     functionName: 'balanceOf',
@@ -72,6 +107,7 @@ export function useUserContract(address?: `0x${string}`) {
     },
   });
 
+  // Check if the user is eligible to claim tokens
   const { data: isEligible } = useReadContract({
     ...CHEETOS_CONTRACT,
     functionName: 'isEligible',
@@ -81,6 +117,7 @@ export function useUserContract(address?: `0x${string}`) {
     },
   });
 
+  // Check if the user has already claimed tokens
   const { data: hasClaimed } = useReadContract({
     ...CHEETOS_CONTRACT,
     functionName: 'hasClaimed',
@@ -97,10 +134,11 @@ export function useUserContract(address?: `0x${string}`) {
   };
 }
 
-// 写入合约的hooks
+// Hooks to write to the contract (e.g., claiming tokens)
 export function useClaimContract() {
   const { writeContract, data: hash, error, isPending } = useWriteContract();
 
+  // Function to call the claim method
   const claim = () => {
     writeContract({
       ...CHEETOS_CONTRACT,
@@ -109,9 +147,10 @@ export function useClaimContract() {
   };
 
   return {
-    claim,
-    hash,
-    error,
-    isPending,
+    claim,    // Function to claim tokens
+    hash,     // Transaction hash of the claim
+    error,    // Error object if transaction fails
+    isPending // Boolean indicating if transaction is pending
   };
 }
+

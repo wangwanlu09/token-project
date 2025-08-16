@@ -2,51 +2,52 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { formatEther } from 'viem';
 
-// Tailwind CSS类名合并工具
+// Utility to merge Tailwind CSS class names
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// 格式化ETH数量
+// Format ETH value from bigint to string with fixed decimals
 export function formatETH(value: bigint, decimals: number = 4): string {
   const formatted = formatEther(value);
   const num = parseFloat(formatted);
   return num.toFixed(decimals);
 }
 
-// 格式化代币数量
+// Format token value (CHE) from bigint to string with fixed decimals
 export function formatTokens(value: bigint, decimals: number = 2): string {
-  const formatted = formatEther(value); // CHE也是18位小数
+  const formatted = formatEther(value); // CHE also has 18 decimals
   const num = parseFloat(formatted);
   return num.toFixed(decimals);
 }
 
-// 简化地址显示
+// Shorten a wallet address for display (e.g., 0x1234...abcd)
 export function shortenAddress(address: string): string {
   if (!address) return '';
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
 
-// 错误消息处理
+// Handle and convert errors to human-readable messages
 export function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {
-    // 处理合约错误
+    // Contract-specific errors
     if (error.message.includes('AlreadyClaimed')) {
-      return '您已经领取过代币了';
+      return 'Token has already been claimed';
     }
     if (error.message.includes('NoSepoliaETH')) {
-      return '账户ETH余额不足0.01 ETH';
+      return 'Insufficient ETH balance (minimum 0.01 ETH required)';
     }
     if (error.message.includes('ExceedsMaxClaims')) {
-      return '代币已全部领取完毕';
+      return 'All tokens have been claimed';
     }
     if (error.message.includes('User rejected')) {
-      return '用户取消了交易';
+      return 'Transaction was cancelled by user';
     }
     if (error.message.includes('insufficient funds')) {
-      return 'Gas费不足';
+      return 'Not enough gas';
     }
     return error.message;
   }
-  return '未知错误';
+  return 'Unknown error';
 }
+

@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useAccount, useWaitForTransactionReceipt } from 'wagmi';
-import { useClaimContract, useUserContract } from './useContract';
+import { useClaimContract, useUserContract, useCheetosDynamicData } from './useContract';
 import { getErrorMessage } from '@/lib/utils';
 
 export function useClaim() {
@@ -9,10 +9,12 @@ export function useClaim() {
   const [successMessage, setSuccessMessage] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
 
+  // Contract hooks
   const { claim, hash, error: contractError, isPending } = useClaimContract();
   const { isEligible, hasClaimed } = useUserContract(address);
+  const { refetchAll } = useCheetosDynamicData();
 
-  // 等待交易确认
+  // Wait for transaction confirmation
   const { 
     isLoading: isConfirming, 
     isSuccess: isConfirmed,
@@ -21,13 +23,13 @@ export function useClaim() {
     hash,
   });
 
-  // 检查是否可以领取
+  // Determine if user can claim
   const canClaim = isConnected && isEligible && !hasClaimed && !isPending && !isConfirming;
 
-  // 领取函数
+  // Claim function
   const handleClaim = useCallback(async () => {
     if (!canClaim) {
-      setErrorMessage('无法领取代币');
+      setErrorMessage('Cannot claim tokens');
       return;
     }
 
@@ -36,7 +38,7 @@ export function useClaim() {
       setErrorMessage('');
       setSuccessMessage('');
       
-      claim();
+      claim(); // Call contract claim function
     } catch (err) {
       setErrorMessage(getErrorMessage(err));
     } finally {
@@ -44,42 +46,51 @@ export function useClaim() {
     }
   }, [canClaim, claim]);
 
-  // 处理状态变化
+  // Determine current status
   const status = (() => {
-    if (isLoading || isPending) return 'pending';
-    if (isConfirming) return 'confirming';
-    if (isConfirmed) return 'success';
-    if (contractError || receiptError) return 'error';
-    return 'idle';
+    if (isLoading || isPending) return 'pending'; // Transaction is being sent
+    if (isConfirming) return 'confirming';       // Waiting for blockchain confirmation
+    if (isConfirmed) return 'success';           // Transaction confirmed
+    if (contractError || receiptError) return 'error'; // Transaction failed
+    return 'idle';                               // Idle state
   })();
 
-  // 处理错误消息
+  // Determine final error message
   const finalErrorMessage = contractError 
     ? getErrorMessage(contractError) 
     : receiptError 
     ? getErrorMessage(receiptError)
     : errorMessage;
 
-  // 处理成功消息
-  const finalSuccessMessage = isConfirmed ? '代币领取成功！' : successMessage;
+  // 当交易确认后刷新合约数据
+  useEffect(() => {
+    if (isConfirmed) {
+      refetchAll(); // 刷新动态数据
+      setSuccessMessage('Token claimed successfully!');
+    }
+  }, [isConfirmed, refetchAll]);
+
+  // Determine final success message
+  const finalSuccessMessage = isConfirmed ? 'Token claimed successfully!' : successMessage;
 
   return {
-    // 状态
+    // Status
     canClaim,
     status,
     hash,
     
-    // 消息
+    // Messages
     successMessage: finalSuccessMessage,
     errorMessage: finalErrorMessage,
     
-    // 方法
+    // Methods
     handleClaim,
     
-    // 原始状态
+    // Raw state
     isLoading,
     isPending,
     isConfirming,
     isConfirmed,
   };
 }
+
