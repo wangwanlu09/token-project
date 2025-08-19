@@ -160,7 +160,7 @@ Visit [Sepolia Faucet](https://sepoliafaucet.com/) to get test ETH
 - Click "Claim Tokens" button
 - Confirm the transaction
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 MyFirstFoundryProject/
@@ -185,7 +185,7 @@ MyFirstFoundryProject/
 └── foundry.toml           # Foundry configuration
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### Foundry Configuration (`foundry.toml`)
 - Enable compiler optimization (reduce gas usage)
@@ -217,7 +217,7 @@ forge coverage
 - [RainbowKit Documentation](https://www.rainbowkit.com/)
 - [Wagmi Documentation](https://wagmi.sh/)
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the project
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -225,7 +225,7 @@ forge coverage
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
