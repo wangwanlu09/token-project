@@ -1,4 +1,5 @@
 # 🧀 Cheetos Token - Ethereum Token Project
+[![Live Demo](https://img.shields.io/badge/Live_Demo-token--dapp--opal.vercel.app-000?logo=vercel&logoColor=white)](https://token-dapp-opal.vercel.app/)
 A complete Ethereum token project built with Foundry and Next.js, featuring smart contracts and a modern frontend interface.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
