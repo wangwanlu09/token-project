@@ -62,10 +62,10 @@ export function useClaim() {
     ? getErrorMessage(receiptError)
     : errorMessage;
 
-  // 当交易确认后刷新合约数据
+  // Refresh contract data when transaction is confirmed
   useEffect(() => {
     if (isConfirmed) {
-      refetchAll(); // 刷新动态数据
+      refetchAll(); // Refresh dynamic data
       setSuccessMessage('Token claimed successfully!');
     }
   }, [isConfirmed, refetchAll]);

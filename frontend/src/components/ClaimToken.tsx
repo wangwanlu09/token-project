@@ -11,12 +11,12 @@ export function ClaimToken() {
   const { address, isConnected } = useAccount();
   const [isClaimLoading, setIsClaimLoading] = useState(false);
 
-  // 使用统一的合约hooks
+  // Use unified contract hooks
   const { minETHRequired } = useCheetosContract();
   const { balance, isEligible, hasClaimed } = useUserContract(address);
   const { claim, hash, error, isPending } = useClaimContract();
 
-  // 等待交易确认
+  // Wait for transaction confirmation
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
     hash,
   });
@@ -29,7 +29,7 @@ export function ClaimToken() {
 
     try {
       setIsClaimLoading(true);
-      claim(); // 使用hook中的claim函数
+      claim(); // Use claim function from hook
     } catch (err) {
       console.error('Claim error:', err);
     } finally {
@@ -37,7 +37,7 @@ export function ClaimToken() {
     }
   };
 
-  // 状态判断
+  // Status check
   const canClaim = isConnected && isEligible && !hasClaimed;
   const isProcessing = isPending || isConfirming || isClaimLoading;
 

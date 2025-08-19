@@ -1,69 +1,70 @@
-# 前端配置说明
+# Frontend Configuration Guide
 
-## 🐛 问题解决
+## 🐛 Problem Resolution
 
-### 之前的问题：
-前端显示数据都是0，原因是：
-1. **网络配置错误**：前端连接的是本地网络而不是Sepolia
-2. **环境变量缺失**：没有正确的环境变量配置
+### Previous Issues:
+The frontend was showing all data as 0, the reasons were:
+1. **Network Configuration Error**: Frontend was connecting to local network instead of Sepolia
+2. **Missing Environment Variables**: No proper environment variable configuration
 
-### ✅ 已修复：
+### ✅ Fixed:
 
-#### 1. 网络配置
+#### 1. Network Configuration
 ```typescript
-// ❌ 之前：连接本地网络
+// ❌ Before: Connecting to local network
 chains: [localSepolia] // http://127.0.0.1:8545
 
-// ✅ 现在：连接真正的Sepolia
-chains: [sepolia] // Sepolia测试网
+// ✅ Now: Connecting to real Sepolia
+chains: [sepolia] // Sepolia testnet
 ```
 
-#### 2. 合约地址配置
+#### 2. Contract Address Configuration
 ```typescript
-// 直接使用部署的合约地址
+// Directly use the deployed contract address
 address: '0x712e4F191Fa3516CA6f15a3F040f6be9BEaD5155'
 ```
 
-## 🛠️ 前端环境配置
+## 🛠️ Frontend Environment Configuration
 
-### 1. 创建环境变量文件
-在 `frontend` 目录下创建 `.env.local`：
+### 1. Create Environment Variables File
+Create `.env.local` in the `frontend` directory:
 
 ```bash
-# Sepolia网络配置
+# Sepolia network configuration
 NEXT_PUBLIC_CHAIN_ID=11155111
 
-# 部署的合约地址
+# Deployed contract address
 NEXT_PUBLIC_CHEETOS_ADDRESS=0x712e4F191Fa3516CA6f15a3F040f6be9BEaD5155
 
-# WalletConnect项目ID（可选）
+# WalletConnect project ID (optional)
 NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_project_id_here
 ```
 
-### 2. 启动前端
+### 2. Start Frontend
 ```bash
 cd frontend
-npm install  # 如果需要的话
+npm install  # if needed
 npm run dev
 ```
 
-### 3. 钱包配置
-确保你的MetaMask：
-- 已添加Sepolia测试网
-- 钱包地址有至少0.01 Sepolia ETH
-- 连接到正确的网络
+### 3. Wallet Configuration
+Make sure your MetaMask:
+- Has Sepolia testnet added
+- Wallet address has at least 0.01 Sepolia ETH
+- Is connected to the correct network
 
-## 🔗 重要链接
+## 🔗 Important Links
 
-- **合约地址**: `0x712e4F191Fa3516CA6f15a3F040f6be9BEaD5155`
+- **Contract Address**: `0x712e4F191Fa3516CA6f15a3F040f6be9BEaD5155`
 - **Etherscan**: https://sepolia.etherscan.io/address/0x712e4f191fa3516ca6f15a3f040f6be9bead5155
-- **Sepolia水龙头**: https://sepoliafaucet.com/
+- **Sepolia Faucet**: https://sepoliafaucet.com/
 
-## 🚀 现在应该正常工作了！
+## 🚀 Should Work Now!
 
-重启前端后，你应该能看到：
-- 正确的合约数据
-- 真实的领取状态
-- 可以正常领取代币
+After restarting the frontend, you should see:
+- Correct contract data
+- Real claim status
+- Can claim tokens normally
+
 
 

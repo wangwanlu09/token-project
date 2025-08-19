@@ -6,12 +6,12 @@ import {Cheetos} from "../src/Cheetos.sol";
 
 contract DeployLocal is Script {
     function run() external {
-        // 使用本地测试私钥 (Anvil默认账户)
+        // Use local test private key (Anvil default account)
         uint256 deployerPrivateKey = vm.envOr("PRIVATE_KEY", uint256(0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80));
         
         vm.startBroadcast(deployerPrivateKey);
         
-        // 部署Cheetos合约
+        // Deploy Cheetos contract
         Cheetos cheetos = new Cheetos();
         
         console.log("=== Local Deployment Complete ===");
@@ -25,7 +25,7 @@ contract DeployLocal is Script {
         
         vm.stopBroadcast();
         
-        // 保存合约地址到文件
+        // Save contract address to file
         string memory contractInfo = string.concat(
             "export const CHEETOS_CONTRACT_ADDRESS = \"",
             vm.toString(address(cheetos)),

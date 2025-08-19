@@ -1,32 +1,32 @@
-# 组件架构说明
+# Component Architecture Guide
 
-## 🏗️ 正确的组件分层
+## 🏗️ Proper Component Layering
 
-### 📁 **新的文件结构**：
+### 📁 **New File Structure**:
 
 ```
 frontend/src/components/
-├── ui/                 # 通用UI组件库
-│   ├── Button.tsx      # ✅ 可复用的按钮组件
-│   └── Card.tsx        # ✅ 可复用的卡片组件
-├── NavBar.tsx          # ✅ 业务导航组件
-├── ConnectWallet.tsx   # ✅ 钱包连接业务组件
-├── TokenInfo.tsx       # ✅ 代币信息业务组件
-└── ClaimToken.tsx      # ✅ 代币领取业务组件
+├── ui/                 # Generic UI component library
+│   ├── Button.tsx      # ✅ Reusable button component
+│   └── Card.tsx        # ✅ Reusable card component
+├── NavBar.tsx          # ✅ Business navigation component
+├── ConnectWallet.tsx   # ✅ Wallet connection business component
+├── TokenInfo.tsx       # ✅ Token information business component
+└── ClaimToken.tsx      # ✅ Token claim business component
 ```
 
-## 🎯 **组件分类原则**
+## 🎯 **Component Classification Principles**
 
-### UI组件 (`ui/` 文件夹)
-**特点**：
-- ✅ **通用性**：可以在任何项目中复用
-- ✅ **无业务逻辑**：只负责展示和基础交互
-- ✅ **高可配置性**：通过props控制样式和行为
-- ✅ **独立性**：不依赖特定的业务逻辑
+### UI Components (`ui/` folder)
+**Characteristics**:
+- ✅ **Generic**: Can be reused in any project
+- ✅ **No Business Logic**: Only responsible for display and basic interaction
+- ✅ **Highly Configurable**: Control style and behavior through props
+- ✅ **Independent**: Not dependent on specific business logic
 
-**例子**：
+**Examples**:
 ```typescript
-// ✅ Button.tsx - 通用按钮
+// ✅ Button.tsx - Generic button
 interface ButtonProps {
   variant?: 'primary' | 'secondary';
   size?: 'sm' | 'md' | 'lg';
@@ -34,7 +34,7 @@ interface ButtonProps {
   children: React.ReactNode;
 }
 
-// ✅ Card.tsx - 通用卡片容器
+// ✅ Card.tsx - Generic card container
 interface CardProps {
   title?: string;
   children: React.ReactNode;
@@ -42,45 +42,45 @@ interface CardProps {
 }
 ```
 
-### 业务组件 (直接在 `components/` 下)
-**特点**：
-- ✅ **业务相关**：包含具体的业务逻辑
-- ✅ **项目特定**：与当前Cheetos项目紧密相关
-- ✅ **功能完整**：实现完整的业务功能
-- ✅ **数据处理**：处理合约数据、用户交互等
+### Business Components (directly under `components/`)
+**Characteristics**:
+- ✅ **Business Related**: Contains specific business logic
+- ✅ **Project Specific**: Closely related to the current Cheetos project
+- ✅ **Complete Functionality**: Implements complete business functions
+- ✅ **Data Processing**: Handles contract data, user interactions, etc.
 
-**例子**：
+**Examples**:
 ```typescript
-// ✅ NavBar.tsx - Cheetos项目的导航栏
+// ✅ NavBar.tsx - Navigation bar for Cheetos project
 export function NavBar() {
   return (
     <nav>
-      <h1>🧀 Cheetos DApp</h1>  // 项目特定
+      <h1>🧀 Cheetos DApp</h1>  // Project specific
     </nav>
   );
 }
 
-// ✅ ConnectWallet.tsx - 钱包连接逻辑
+// ✅ ConnectWallet.tsx - Wallet connection logic
 export function ConnectWallet() {
   const { connect, isConnected } = useAccount();
-  // 业务逻辑...
+  // Business logic...
 }
 ```
 
-## 📊 **对比总结**
+## 📊 **Comparison Summary**
 
-| 组件类型 | 位置 | 特点 | 例子 |
+| Component Type | Location | Characteristics | Examples |
 |---------|------|------|------|
-| **UI组件** | `ui/` | 通用、可复用、无业务逻辑 | Button, Card, Input, Modal |
-| **业务组件** | `components/` | 业务相关、项目特定、有完整功能 | NavBar, ConnectWallet, TokenInfo |
+| **UI Components** | `ui/` | Generic, reusable, no business logic | Button, Card, Input, Modal |
+| **Business Components** | `components/` | Business related, project specific, complete functionality | NavBar, ConnectWallet, TokenInfo |
 
-## 🎉 **你的观察很正确！**
+## 🎉 **Your observation is correct!**
 
-NavBar确实不应该放在`ui/`文件夹中，因为：
-- ❌ 它包含Cheetos项目特定的内容
-- ❌ 它不是一个可复用的通用组件
-- ❌ 它有特定的业务逻辑
+NavBar should indeed not be placed in the `ui/` folder because:
+- ❌ It contains Cheetos project-specific content
+- ❌ It's not a reusable generic component
+- ❌ It has specific business logic
 
-现在的结构更加合理和清晰！👍
+The current structure is more reasonable and clear! 👍
 
 

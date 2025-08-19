@@ -1,38 +1,38 @@
-# Cheetos 合约部署总结
+# Cheetos Contract Deployment Summary
 
-## 🎉 部署成功！
+## Deployment Successful!
 
-### 网络信息
-- **网络**: Sepolia Testnet
+### Network Information
+- **Network**: Sepolia Testnet
 - **Chain ID**: 11155111
 
-### 合约信息
-- **合约名称**: Cheetos (CHE)
-- **合约地址**: `0x712e4F191Fa3516CA6f15a3F040f6be9BEaD5155`
-- **部署时间**: 2024年12月
-- **Etherscan链接**: https://sepolia.etherscan.io/address/0x712e4f191fa3516ca6f15a3f040f6be9bead5155
+### Contract Information
+- **Contract Name**: Cheetos (CHE)
+- **Contract Address**: `0x712e4F191Fa3516CA6f15a3F040f6be9BEaD5155`
+- **Deployment Date**: December 2024
+- **Etherscan Link**: https://sepolia.etherscan.io/address/0x712e4f191fa3516ca6f15a3f040f6be9bead5155
 
-### 交易信息
-- **部署交易**: `0x420a85ac4636a3b13217eb4142d7d6fef3e1b9d4114d1aa229cb6cad6da64e0e`
-- **区块高度**: 8,992,702
-- **Gas 使用**: 688,587
-- **部署费用**: 0.000002008943620869 ETH
+### Transaction Information
+- **Deployment Transaction**: `0x420a85ac4636a3b13217eb4142d7d6fef3e1b9d4114d1aa229cb6cad6da64e0e`
+- **Block Height**: 8,992,702
+- **Gas Used**: 688,587
+- **Deployment Cost**: 0.000002008943620869 ETH
 
-### 合约特性
-- **代币总量**: 10,000 CHE
-- **每次领取**: 10 CHE
-- **最大领取次数**: 1,000次
-- **领取条件**: 持有至少 0.01 Sepolia ETH
-- **每地址限制**: 只能领取一次
+### Contract Features
+- **Total Token Supply**: 10,000 CHE
+- **Claim Amount**: 10 CHE per claim
+- **Maximum Claims**: 1,000 claims
+- **Claim Requirement**: Hold at least 0.01 Sepolia ETH
+- **Per Address Limit**: One claim per address
 
-### 验证状态
-✅ 合约已在 Etherscan 上成功验证
+### Verification Status
+Contract successfully verified on Etherscan
 
-### 下一步
-1. 使用前端应用连接到 Sepolia 网络
-2. 确保 MetaMask 已添加 Sepolia 测试网
-3. 从水龙头获取 Sepolia ETH 用于测试
-4. 开始测试代币领取功能
+### Next Steps
+1. Use the frontend application to connect to Sepolia network
+2. Ensure MetaMask has Sepolia testnet added
+3. Get Sepolia ETH from faucet for testing
+4. Start testing the token claim functionality
 
-### 前端配置
-前端已自动更新为使用 Sepolia 网络上的合约地址。
+### Frontend Configuration
+The frontend has been automatically updated to use the contract address on the Sepolia network.

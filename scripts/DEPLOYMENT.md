@@ -1,55 +1,62 @@
-# Cheetos 合约部署指南
+# Cheetos Contract Deployment Guide
 
-## 部署到 Sepolia 测试网
+## Deploy to Sepolia Testnet
 
-### 准备工作
+### Prerequisites
 
-1. **创建 .env 文件**
-   在项目根目录创建 `.env` 文件，添加以下内容：
+1. **Create .env file**
+   Create a `.env` file in the project root directory with the following content:
    ```
-   # 你的钱包私钥 (不要包含0x前缀)
+   # Your wallet private key (without 0x prefix)
    PRIVATE_KEY=your_private_key_here
    
    # Infura API Key
    INFURA_API_KEY=your_infura_api_key_here
    
-   # Etherscan API Key (用于验证合约)
+   # Etherscan API Key (for contract verification)
    ETHERSCAN_API_KEY=your_etherscan_api_key_here
    ```
 
-2. **获取必要的资源**
-   - **Sepolia ETH**: 从水龙头获取测试ETH
+2. **Get required resources**
+   - **Sepolia ETH**: Get test ETH from faucet
      - https://sepoliafaucet.com/
      - https://faucet.quicknode.com/ethereum/sepolia
    - **Infura API Key**: 
-     - 注册 https://infura.io/
-     - 创建新项目，获取API Key
-   - **Etherscan API Key** (可选，用于验证):
-     - 注册 https://etherscan.io/
-     - 创建API Key
+     - Register at https://infura.io/
+     - Create new project, get API Key
+   - **Etherscan API Key** (optional, for verification):
+     - Register at https://etherscan.io/
+     - Create API Key
 
-### 部署步骤
+### Deployment Steps
 
-1. **编译合约**
+1. **Compile contracts**
    ```bash
    forge build
    ```
 
-2. **部署到 Sepolia**
+2. **Deploy to Sepolia**
    ```bash
+   # Method 1: Use Makefile (recommended, cross-platform)
+   make deploy-sepolia
+   
+   # Method 2: Use Node.js script directly
+   node scripts/deploy-sepolia.js
+   
+   # Method 3: Use forge command directly
    forge script script/DeployCheetos.s.sol --rpc-url sepolia --broadcast --verify
    ```
 
-3. **验证部署**
-   部署完成后，你会看到合约地址。可以在 Sepolia Etherscan 上查看：
+3. **Verify deployment**
+   After deployment, you will see the contract address. You can view it on Sepolia Etherscan:
    https://sepolia.etherscan.io/
 
-### 故障排除
+### Troubleshooting
 
-- 确保 `.env` 文件在项目根目录
-- 确保私钥没有 `0x` 前缀
-- 确保钱包有足够的 Sepolia ETH
-- 如果验证失败，可以手动验证：
+- Make sure `.env` file is in the project root directory
+- Make sure private key doesn't have `0x` prefix
+- Make sure wallet has enough Sepolia ETH
+- If verification fails, you can verify manually:
   ```bash
   forge verify-contract <contract_address> src/Cheetos.sol:Cheetos --chain sepolia
   ```

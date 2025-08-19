@@ -6,17 +6,17 @@ import {Cheetos} from "../src/Cheetos.sol";
 
 contract TestClaim is Script {
     function run() external {
-        // 从环境变量获取合约地址，或使用默认地址
+        // Get contract address from environment variable, or use default address
         address cheetosAddress = vm.envOr("CHEETOS_ADDRESS", address(0));
         require(cheetosAddress != address(0), "Please set CHEETOS_ADDRESS environment variable");
         
         Cheetos cheetos = Cheetos(cheetosAddress);
         
-        // 使用不同的测试账户进行测试
+        // Use different test accounts for testing
         uint256[] memory testPrivateKeys = new uint256[](3);
-        testPrivateKeys[0] = 0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d; // 账户1
-        testPrivateKeys[1] = 0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a; // 账户2 
-        testPrivateKeys[2] = 0x7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6; // 账户3
+        testPrivateKeys[0] = 0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d; // Account 1
+        testPrivateKeys[1] = 0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a; // Account 2 
+        testPrivateKeys[2] = 0x7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6; // Account 3
         
         console.log("=== Starting Claim Function Tests ===");
         console.log("Contract Address:", address(cheetos));
