@@ -1,6 +1,19 @@
 # 🧀 Cheetos Token - Ethereum Token Project
 A complete Ethereum token project built with Foundry and Next.js, featuring smart contracts and a modern frontend interface.
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+[![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=nodedotjs&logoColor=white)]()
+![Solidity](https://img.shields.io/badge/Solidity-0.8.26-363636?logo=solidity&logoColor=white)
+![Foundry](https://img.shields.io/badge/Foundry-latest-orange)
+![Next.js](https://img.shields.io/badge/Next.js-15.4.6-000000?logo=next.js)
+![React](https://img.shields.io/badge/React-19.1.0-61DAFB?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-4.x-06B6D4?logo=tailwindcss&logoColor=white)
+![wagmi](https://img.shields.io/badge/wagmi-2.16.3-2E7DF6)
+![viem](https://img.shields.io/badge/viem-2.33.3-000000)
+![RainbowKit](https://img.shields.io/badge/RainbowKit-2.2.8-FF5AE5)
+
 
 ## Project Overview
 
