@@ -2,7 +2,6 @@
 A complete Ethereum token project built with Foundry and Next.js, featuring smart contracts and a modern frontend interface.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=nodedotjs&logoColor=white)]()
 ![Solidity](https://img.shields.io/badge/Solidity-0.8.26-363636?logo=solidity&logoColor=white)
 ![Foundry](https://img.shields.io/badge/Foundry-latest-orange)
