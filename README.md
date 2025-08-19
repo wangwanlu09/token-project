@@ -1,6 +1,6 @@
 # 🧀 Cheetos Token - Ethereum Token Project
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 A complete Ethereum token project built with Foundry and Next.js, featuring smart contracts and a modern frontend interface.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Project Overview
 
